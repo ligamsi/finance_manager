@@ -8,13 +8,15 @@ public class Transaction {
     private TransactionType type;
     private LocalDate date;
     private String description;
+    private Category category;
 
     public Transaction(BigDecimal amount, TransactionType type,
-                       LocalDate date, String description) {
+                       LocalDate date, String description, Category category) {
         this.amount = amount;
         this.type = type;
         this.date = date;
         this.description = description;
+        this.category = category;
     }
 
     public BigDecimal getAmount() {
@@ -29,6 +31,9 @@ public class Transaction {
     public String getDescription() {
         return description;
     }
+    public Category getCategory() {
+        return category;
+    }
 
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
@@ -41,6 +46,9 @@ public class Transaction {
     }
     public void setDescription(String description) {
         this.description = description;
+    }
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     @Override

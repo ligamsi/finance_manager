@@ -1,27 +1,39 @@
 package com.example.financemanager;
-import java.math.BigDecimal;
-import java.time.LocalDate;
 
 import com.example.financemanager.model.Transaction;
 import com.example.financemanager.model.TransactionType;
+import com.example.financemanager.model.Account;
+import com.example.financemanager.model.User;
+import com.example.financemanager.model.Category;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
 public class Main {
     public static void main(String[] args) {
+        User user = new User();
+
+        Category category = new Category("Продукты");
+
+        Account account = new Account(
+                "Основная карта",
+                new BigDecimal("150000")
+        );
+
+        user.addAccount(account);
+
         Transaction expense = new Transaction(
                 new BigDecimal("8500"),
                 TransactionType.EXPENSE,
-                LocalDate.of(2026,10,1),
-                "Продукты"
+                LocalDate.of(2026, 10, 1),
+                "Продукты",
+                category
         );
 
-        Transaction income = new Transaction(
-                new BigDecimal("150000"),
-                TransactionType.INCOME,
-                LocalDate.of(2026, 10,1),
-                "Зарплата"
-        );
+        account.addTransaction(expense);
 
-        System.out.println(expense);
-        System.out.println(income);
+        System.out.println(user.getAccounts().size());
+        System.out.println(account.getTransactions().size());
+        System.out.println(expense.getCategory().getName());
     }
 }
