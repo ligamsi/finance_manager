@@ -11,7 +11,7 @@ import java.time.LocalDate;
 
 public class Main {
     public static void main(String[] args) {
-        User user = new User();
+        User user = new User("Иван", "ivan@mail.ru");
 
         Category category = new Category("Продукты");
 
