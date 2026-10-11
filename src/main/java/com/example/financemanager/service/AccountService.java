@@ -10,6 +10,7 @@ import com.example.financemanager.model.User;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
+import java.util.List;
 
 @Service
 public class AccountService {
@@ -51,5 +52,24 @@ public class AccountService {
                 savedAccount.getBalance(),
                 user.getId()
         );
+    }
+
+    public List<AccountResponse> getAccountsByUserId(Long userId) {
+        if (!userRepository.existsById(userId)) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    "Пользователь не найден"
+            );
+        }
+
+        return accountRepository.findAllByUserId(userId)
+                .stream()
+                .map(account -> new AccountResponse(
+                        account.getId(),
+                        account.getName(),
+                        account.getBalance(),
+                        userId
+                ))
+                .toList();
     }
 }
