@@ -1,5 +1,7 @@
 package com.example.financemanager.service;
 
+import com.example.financemanager.dto.CreateUserRequest;
+import com.example.financemanager.model.User;
 import com.example.financemanager.dto.UserResponse;
 import com.example.financemanager.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -23,5 +25,20 @@ public class UserService {
                         user.getEmail()
                 ))
                 .toList();
+    }
+
+    public UserResponse createUser(CreateUserRequest request) {
+        User user = new User(
+                request.name(),
+                request.email()
+        );
+
+        User savedUser = userRepository.save(user);
+
+        return new UserResponse(
+                savedUser.getId(),
+                savedUser.getName(),
+                savedUser.getEmail()
+        );
     }
 }
